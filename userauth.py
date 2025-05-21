@@ -21,3 +21,11 @@ def authenticate(users, is_admin = False):
             is_admin = True
     return is_admin
 
+def authenticate_user(func):
+    def wrapper(*args, **kwargs):
+        users = read_users()
+        if authenticate(users):
+            return func(*args, **kwargs)
+        else:
+            input("Authentication failed!")
+    return wrapper

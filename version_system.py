@@ -1,6 +1,7 @@
 from datetime import datetime
 import json, os, shutil
 from main import int_input
+from userauth import authenticate_user
 
 CONFIG_FILE = "warehouse_inventory.json"
 DIRECTORY = "./backups/"
@@ -38,6 +39,7 @@ def update_backups(filename, history, vscomment):
     write_backups(history)
     print_backups(history)
 
+@authenticate_user
 def restore_version(filename):
     """Restores a version of the file from the backup history."""
     print("\n")

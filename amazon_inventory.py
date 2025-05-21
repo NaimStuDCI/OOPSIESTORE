@@ -1,6 +1,7 @@
 import csv, os, sys, time 
 from datetime import datetime
 from version_system import *
+from userauth import authenticate_user
 
 FILENAME = "warehouse_inventory.csv"
 
@@ -106,9 +107,9 @@ def check_valid_itemdata(func):
         return func(*args, vscomment=comment, item=item_name, quantity=item_quantity, expiration_date=expiration_date, price=item_price)
     return wrapper
 
-
-@progress_bar
 @check_valid_itemdata
+@authenticate_user
+@progress_bar
 def add_item(data,vscomment,item,quantity,expiration_date,price):
     """Adds an item to the data."""
     data.append({
@@ -120,8 +121,9 @@ def add_item(data,vscomment,item,quantity,expiration_date,price):
     save_data(data,vscomment=vscomment)
     return
 
-@progress_bar
 @check_item_present
+@authenticate_user
+@progress_bar
 def update_item(data,vscomment, item,quantity=None,expiration_date=None,price=None):
     """Updates an item in the data."""
     for d in data :
@@ -135,9 +137,9 @@ def update_item(data,vscomment, item,quantity=None,expiration_date=None,price=No
     save_data(data, vscomment=vscomment)
     return
 
-
-@progress_bar
 @check_item_present
+@authenticate_user
+@progress_bar
 def remove_item(data,vscomment, item):
     """Removes an item from the data."""
     data = [d for d in data if d["item"].lower() != item.lower()]#dummy delete
