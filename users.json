@@ -1,0 +1,9 @@
+{
+"naim": 
+{"password": "123456", "role": "admin"},
+
+"chris":
+{"password":"123456", "role": "admin"},
+
+"kate":
+{"password": "123456", "role": "user"}}
