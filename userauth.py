@@ -1,4 +1,5 @@
 import json
+
 USERS_FILE = "users.json"
 
 def read_users():
@@ -6,7 +7,6 @@ def read_users():
     with open(USERS_FILE, "r") as json_file:
         users = json.load(json_file)
     return users
-
 
 def write_users(users):
     """Writes the user's database to the JSON file."""

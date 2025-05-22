@@ -2,6 +2,7 @@ import csv, os, sys, time
 from datetime import datetime
 from version_system import *
 from userauth import authenticate_user
+from tiny_backup import create_backups
 
 FILENAME = "warehouse_inventory.csv"
 
@@ -11,29 +12,6 @@ def load_data():
         reader = csv.DictReader(file)
         return list(reader)
     
-def create_backups(func):
-    """Decorator to create backups of the CSV file."""
-    def wrapper(*args, **kwargs):
-        """Creates a backup of the CSV file before executing the function."""
-        num_of_backups = 5
-        # delete the oldest backup
-        backupname = FILENAME[0:-3] + "bk" + str(num_of_backups)
-        if os.path.exists(backupname):
-            os.remove(backupname)
-        # rename the remaining backups
-        while num_of_backups > 1:
-            new_filename = FILENAME[0:-3] + "bk" + str(num_of_backups)
-            old_filename = FILENAME[0:-3] + "bk" + str(num_of_backups - 1)
-            if os.path.exists(old_filename):
-                os.rename(old_filename, new_filename)
-            num_of_backups -= 1
-        # rename the original filename to the first backup
-        new_filename = FILENAME[0:-3] + "bk" + str(num_of_backups)
-        if os.path.exists(FILENAME):
-            os.rename(FILENAME, new_filename)
-        return func(*args, **kwargs)
-    return wrapper
-
 def use_version_system(func):
     """Decorator to use the version system for backups.
     Creates a backup of the CSV file before executing the function."""
@@ -46,7 +24,7 @@ def use_version_system(func):
         return result
     return wrapper
 
-# @create_backups
+@create_backups(file_to_backup = FILENAME, max_backups = 5)
 @use_version_system
 def save_data(data,vscomment):
     """Saves the data to the CSV file."""
