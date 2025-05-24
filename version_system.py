@@ -1,7 +1,7 @@
 from datetime import datetime
 import json, os, shutil
 from main import int_input
-from userauth import authenticate_user
+from userauth_oop import authenticate_user
 
 CONFIG_FILE = "warehouse_inventory.json"
 DIRECTORY = "./backups/"

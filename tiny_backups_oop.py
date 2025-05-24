@@ -27,8 +27,9 @@ class TinyBackups:
         if os.path.exists(self.orig_filename):
             os.rename(self.orig_filename, backup_filename)
 
+# Decorator for use in amazon_inventory_oop
 def create_backups(file_to_backup, max_backups):
-    def decorator(func):
+    def inner_decorator(func):
         def wrapper(*args, **kwargs):
             
             tiny_backups = TinyBackups(file_to_backup, max_backups)
@@ -36,4 +37,4 @@ def create_backups(file_to_backup, max_backups):
 
             return func(*args, **kwargs)
         return wrapper
-    return decorator
+    return inner_decorator
