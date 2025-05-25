@@ -82,7 +82,7 @@ def authenticate_user(func):
         if users.authenticate():
             return func(*args, **kwargs)
         else:
-            input("Authentication failed!")
+            print("\nAuthentication failed!")
     return wrapper
 
 if __name__ == "__main__":

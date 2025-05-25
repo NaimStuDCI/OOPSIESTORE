@@ -33,6 +33,7 @@ class VersionManager:
 
     def print_backups(self):
         """Prints the history of backups in a readable format."""
+        print("\nThe list of available backup files:\n")
         index = 0
         for version in self.history:
             index += 1
@@ -58,20 +59,23 @@ class VersionManager:
     @authenticate_user
     def restore_version(self, filename):
         """Restores a version of the file from the backup history."""
-        print("\n")
         
         self.print_backups()
-        index = input("Enter the index of the backup you want to restore: ")
-        while not index.isdigit():
-            index = input("Enter the index of the backup you want to restore: ")
-        index = int(index)
-        if index < 1 or index > len(self.history):
-            print("Invalid index. Please try again.")
-            input()
-            return
-        version_filename = self.history[index - 1].filename
-        self.update_backups(filename, f"restored from {version_filename}")
-        shutil.copy(f"{self.DIRECTORY}{version_filename}", filename)
+
+        # Input check befor restoring: 0 (skip) to number of existing backups
+        while True:
+            index = input("\nEnter the index number of the backup you wish to restore (0 to skip backup): ")
+            if index.isdigit():
+                index = int(index)
+                if index > 0 and index <= len(self.history):  # Do backup
+                    version_filename = self.history[index - 1].filename
+                    self.update_backups(filename, f"restored from {version_filename}")
+                    shutil.copy(f"{self.DIRECTORY}{version_filename}", filename)
+                    return            
+                elif index == 0:  # Skip backup
+                    return
+                else:
+                    print("\nInvalid index. Please try again.")    
 
 # Decorator for use in amazon_inventory_oop
 def use_version_system_oop(filename, vscomment):
@@ -84,4 +88,3 @@ def use_version_system_oop(filename, vscomment):
             return func(*args, **kwargs)
         return wrapper
     return inner_decorator
-

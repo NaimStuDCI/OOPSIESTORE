@@ -48,8 +48,9 @@ class InventoryManager:
             if item.item == item_name:
                 self.data.remove(item)
                 self.write_data()
+                print(f"\nItem \"{item_name}\" successfully removed from inventory.")
                 return
-        print(f"Item {item_name} not found in inventory.")
+        print(f"\nItem \"{item_name}\" not found in inventory.")
 
     def update_item(self, item_name, quantity=None, expiration_date=None, price=None):
         """Updates an item in the inventory."""
@@ -67,7 +68,7 @@ class InventoryManager:
 
     def print_report(self,list_items = []):
         """Prints the inventory data in a readable format."""
-        print(f"{'Item':<20} {'Quantity':<10} {'Expiration Date':<20} {'Price':<10}\n")
+        print(f"\n{'Item':<20} {'Quantity':<10} {'Expiration Date':<20} {'Price':<10}\n")
         for item in list_items:
             print(f"{item.item:<20} {item.quantity:<10} {item.expiration_date:<20} {item.price:<10}")
 
@@ -77,7 +78,7 @@ class InventoryManager:
             if item.item == item_name:
                 self.print_report([item])
                 return
-        print(f"Item \"{item_name}\" not found in inventory.")
+        print(f"\nItem \"{item_name}\" not found in inventory.")
 
     def print_full_report(self):
         """Prints the full inventory report."""

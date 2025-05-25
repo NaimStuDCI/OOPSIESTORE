@@ -1,4 +1,4 @@
-from os import system  # only for "clear screen"
+from os import system
 from amazon_inventory_oop import *
 
 # import os
@@ -22,10 +22,10 @@ class MenuManager:
         print(" 4. Get Full Report")
         print(" 5. Get Expired Items")
         print(" 6. Search Item")
-        print(" 7. Sort by Expiration Date")
-        print(" 8. Sort by Price")
-        print(" 9. Sort by Quantity")
-        print("10. Restore a backup")
+        print(" 7. Sort By Expiration Date")
+        print(" 8. Sort By Price")
+        print(" 9. Sort By Quantity")
+        print("10. Restore A Backup")
         print(f"\n 0. Quit\n")
 
     def get_choice(self):
@@ -37,6 +37,7 @@ class MenuManager:
 # Main part
 warehouse = MenuManager()
 inventory = InventoryManager()
+v_manager = VersionManager()
 
 # Main loop
 while warehouse.running:
@@ -46,47 +47,65 @@ while warehouse.running:
 
     match warehouse.choice:
 
+        case 1:
+            system(clear_crt)
+            print("\nAdd an item to the warehouse\n")
+            
+            input("\nPress <RETURN> to continue.\n")
+
+        case 2:
+            system(clear_crt)
+            print("\nRemove an item from the warehouse\n")
+            inventory.remove_item(input("\nEnter item name to remove: "))
+            input("\nPress <RETURN> to continue.\n")
+
+        case 3:
+            system(clear_crt)
+            print("\nUpdate an existing item of the warehouse\n")
+            
+            input("\nPress <RETURN> to continue.\n")
+
         case 4:
             system(clear_crt)
-            print("\nThe full report - unsorted\n")
+            print("\nThe full report - unsorted")
             inventory.print_full_report()
             input("\nPress <RETURN> to continue.\n")
 
         case 5:
             system(clear_crt)
-            print("\nThe list of expired items\n")
+            print("\nThe list of expired items")
             inventory.print_expired_items()
             input("\nPress <RETURN> to continue.\n")
 
         case 6:
             system(clear_crt)
             print("\nSearch an item\n")
-            inventory.search_item(input("Enter the itemname you want to search: "))
+            inventory.search_item(input("Enter the item name you want to search: "))
             input("\nPress <RETURN> to continue.\n")
 
         case 7:
             system(clear_crt)
-            print("\nThe full report - sorted by expiration date\n")
+            print("\nThe full report - sorted by expiration date")
             inventory.print_sorted_by_expiration_date()
             input("\nPress <RETURN> to continue.\n")
         
         case 8:
             system(clear_crt)
-            print("\nThe full report - sorted by price\n")
+            print("\nThe full report - sorted by price")
             inventory.print_sorted_by_price()
             input("\nPress <RETURN> to continue.\n")
 
         case 9:
             system(clear_crt)
-            print("\nThe full report - sorted by quantity\n")
+            print("\nThe full report - sorted by quantity")
             inventory.print_sorted_by_quantity()
             input("\nPress <RETURN> to continue.\n")
 
         case 10:
             system(clear_crt)
             print("\nRestore data from an existing backup\n")
-            vers_man = VersionManager()
-            vers_man.restore_version(filename)           
+            v_manager.restore_version(filename)
+            inventory.__init__()  # Reload the CSV-file into self.data
             input("\nPress <RETURN> to continue.\n")
 
         case 0:
