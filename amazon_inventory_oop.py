@@ -2,6 +2,7 @@ import csv
 from datetime import datetime
 from version_system_oop import *
 from tiny_backups_oop import create_backups
+from userauth_oop import authenticate_user
 
 class Item:
     def __init__(self, item, quantity = 0, expiration_date = "1970-01-01", price = 0.0):
@@ -71,6 +72,7 @@ class InventoryManager:
         self.data.append(Item(item_name, quantity, expiration_date, price))
         self.write_data()        
 
+    @authenticate_user
     def new_add_item(self, new_item_name):
         """Adds an item to the inventory."""
         for item in self.data:
@@ -80,15 +82,28 @@ class InventoryManager:
         new_item = Item(new_item_name)
         new_item.update_values()
         self.data.append(new_item)
+
+        # Decorate / undecorate method "write_data()" with "use_version_system_oop(filename, vscomment)"
+        dummy = self.write_data
+        self.write_data = use_version_system_oop(self.FILENAME, f"New Item '{new_item_name}' added to inventory.")(self.write_data)
         self.write_data()
+        self.write_data = dummy
+
         print(f"\nItem \"{new_item_name}\" successfully added to inventory.")
 
+    @authenticate_user
     def remove_item(self, item_name):
         """Removes an item from the inventory."""
         for item in self.data:
             if item.item == item_name:
                 self.data.remove(item)
+                
+                # Decorate / undecorate method "write_data()" with "use_version_system_oop(filename, vscomment)"
+                dummy = self.write_data
+                self.write_data = use_version_system_oop(self.FILENAME, f"Item '{item_name}' removed from inventory.")(self.write_data)
                 self.write_data()
+                self.write_data = dummy
+
                 print(f"\nItem \"{item_name}\" successfully removed from inventory.")
                 return
         print(f"\nItem \"{item_name}\" not found in inventory.")
@@ -107,12 +122,19 @@ class InventoryManager:
                 return
         print(f"Item {item_name} not found in inventory.")
 
+    @authenticate_user
     def new_update_item(self, item_name):
         """Updates an item in the inventory."""
         for item in self.data:
             if item.item == item_name:
                 item.update_values()
+
+                # Decorate / undecorate method "write_data()" with "use_version_system_oop(filename, vscomment)"
+                dummy = self.write_data
+                self.write_data = use_version_system_oop(self.FILENAME, f"Item '{item_name}' updated.")(self.write_data)
                 self.write_data()
+                self.write_data = dummy
+
                 print(f"\nItem \"{item_name}\" successfully updated.")
                 return
         print(f"\nItem \"{item_name}\" not found in inventory.")

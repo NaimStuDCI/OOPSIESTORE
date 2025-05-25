@@ -54,17 +54,19 @@ class VersionManager:
         key_name = self.create_copie(filename)
         self.history.append(Version(key_name, vscomment))
         self.write_backups()
-        self.print_backups()
+        # self.print_backups()
 
     @authenticate_user
     def restore_version(self, filename):
         """Restores a version of the file from the backup history."""
         
+        self.history = self.read_backups()
         self.print_backups()
-
+        
         # Input check befor restoring: 0 (skip) to number of existing backups
-        while True:
-            index = input("\nEnter the index number of the backup you wish to restore (0 to skip backup): ")
+        while (index := input(f"\nEnter the index number of the backup you wish to restore, or press <RETURN> to skip backup: ")) != "":
+        # while True:
+            # index = input("\nEnter the index number of the backup you wish to restore (0 to skip backup): ")
             if index.isdigit():
                 index = int(index)
                 if index > 0 and index <= len(self.history):  # Do backup
@@ -75,7 +77,8 @@ class VersionManager:
                 elif index == 0:  # Skip backup
                     return
                 else:
-                    print("\nInvalid index. Please try again.")    
+                    print("\nInvalid index. Please try again.")
+        print("\nNo backup restored.")
 
 # Decorator for use in amazon_inventory_oop
 def use_version_system_oop(filename, vscomment):

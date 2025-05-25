@@ -5,7 +5,7 @@ from amazon_inventory_oop import *
 # if os.name == "nt": clear_crt = "cls"
 # else: clear_crt = "clear"
 
-clear_crt = "cls"
+clear_crt = "clear"
 filename = "warehouse_inventory.csv"
 
 class MenuManager:
@@ -50,8 +50,6 @@ while warehouse.running:
         case 1:
             system(clear_crt)
             print("\nAdd an item to the warehouse\n")
-            # new_item = Item(input("Enter item name: "))
-            # new_item.update_values()
             inventory.new_add_item(input("Enter item name: "))
             input("\nPress <RETURN> to continue.\n")
 
