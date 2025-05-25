@@ -1,2 +1,7 @@
 {
+    "warehouse_inventory20250525214859.csv": "New Item 'Test' added to inventory.",
+    "warehouse_inventory20250525214932.csv": "Item 'Test' removed from inventory.",
+    "warehouse_inventory20250525215006.csv": "Item 'Bed' updated.",
+    "warehouse_inventory20250525215036.csv": "New Item 'Hallo' added to inventory.",
+    "warehouse_inventory20250525215047.csv": "Item 'Hallo' removed from inventory."
 }

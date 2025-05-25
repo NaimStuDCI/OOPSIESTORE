@@ -54,6 +54,7 @@ class InventoryManager:
                 data.append(Item(row["item"], row["quantity"], row["expiration_date"], row["price"]))
         return data
     
+    @create_backups(FILENAME, 5)
     def write_data(self):
         """Writes the inventory data to the CSV file."""
         with open(self.FILENAME, "w", newline="") as csv_file:
