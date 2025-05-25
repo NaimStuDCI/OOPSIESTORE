@@ -50,7 +50,9 @@ while warehouse.running:
         case 1:
             system(clear_crt)
             print("\nAdd an item to the warehouse\n")
-            
+            new_item = Item(input("Enter item name: "))
+            new_item.update_values()
+            inventory.new_add_item(new_item)
             input("\nPress <RETURN> to continue.\n")
 
         case 2:

@@ -9,6 +9,35 @@ class Item:
         self.quantity = quantity
         self.expiration_date = expiration_date
         self.price = price
+
+    def update_values(self):
+        print(f"\nUpdate the values for \"{self.item}\": Press <RETURN> to skip update\n")
+        
+        # Quantity update
+        while (new_value := input(f"\nQuantity is: \"{self.quantity}\" and should be: ")) != "":
+            if new_value.isdigit():
+                self.quantity = new_value
+                break
+            else:
+                print("\nOnly natural numbers, including 0!\n")
+
+        # Expiration date update
+        while (new_value := input(f"\nExpiration date is: \"{self.expiration_date}\" and should be: ")) != "":
+            try:
+                datetime.strptime(new_value, "%Y-%m-%d")
+                self.expiration_date = new_value
+                break
+            except:
+                print("\nThe format must be \"YYYY-MM-DD\"!\n")
+
+        # Price update
+        while (new_value := input(f"\nPrice is: \"{self.price}\" and should be: ")) != "":
+            try:
+                if float(new_value) >= 0:
+                    self.price = new_value
+                    break
+            except:
+                print("\nOnly positiv numbers, including 0!\n")
     
 class InventoryManager:
     FILENAME = "warehouse_inventory.csv"
@@ -40,6 +69,15 @@ class InventoryManager:
                 print(f"Item {item_name} already exists in inventory.")
                 return
         self.data.append(Item(item_name, quantity, expiration_date, price))
+        self.write_data()        
+
+    def new_add_item(self, new_item):
+        """Adds an item to the inventory."""
+        for item in self.data:
+            if item.item == new_item.item:
+                print(f"\nItem {item.item} already exists in inventory.")
+                return
+        self.data.append(new_item)
         self.write_data()        
 
     def remove_item(self, item_name):
