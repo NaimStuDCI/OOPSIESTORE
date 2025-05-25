@@ -50,9 +50,9 @@ while warehouse.running:
         case 1:
             system(clear_crt)
             print("\nAdd an item to the warehouse\n")
-            new_item = Item(input("Enter item name: "))
-            new_item.update_values()
-            inventory.new_add_item(new_item)
+            # new_item = Item(input("Enter item name: "))
+            # new_item.update_values()
+            inventory.new_add_item(input("Enter item name: "))
             input("\nPress <RETURN> to continue.\n")
 
         case 2:
@@ -64,7 +64,7 @@ while warehouse.running:
         case 3:
             system(clear_crt)
             print("\nUpdate an existing item of the warehouse\n")
-            
+            inventory.new_update_item(input("\nEnter the name of the item: "))
             input("\nPress <RETURN> to continue.\n")
 
         case 4:

@@ -11,7 +11,7 @@ class Item:
         self.price = price
 
     def update_values(self):
-        print(f"\nUpdate the values for \"{self.item}\": Press <RETURN> to skip update\n")
+        print(f"\nUpdate the values for \"{self.item}\": Press <RETURN> to skip update")
         
         # Quantity update
         while (new_value := input(f"\nQuantity is: \"{self.quantity}\" and should be: ")) != "":
@@ -71,14 +71,17 @@ class InventoryManager:
         self.data.append(Item(item_name, quantity, expiration_date, price))
         self.write_data()        
 
-    def new_add_item(self, new_item):
+    def new_add_item(self, new_item_name):
         """Adds an item to the inventory."""
         for item in self.data:
-            if item.item == new_item.item:
-                print(f"\nItem {item.item} already exists in inventory.")
+            if item.item == new_item_name:
+                print(f"\nItem \"{new_item_name}\" already exists in inventory.")
                 return
+        new_item = Item(new_item_name)
+        new_item.update_values()
         self.data.append(new_item)
-        self.write_data()        
+        self.write_data()
+        print(f"\nItem \"{new_item_name}\" successfully added to inventory.")
 
     def remove_item(self, item_name):
         """Removes an item from the inventory."""
@@ -103,6 +106,16 @@ class InventoryManager:
                 self.write_data()
                 return
         print(f"Item {item_name} not found in inventory.")
+
+    def new_update_item(self, item_name):
+        """Updates an item in the inventory."""
+        for item in self.data:
+            if item.item == item_name:
+                item.update_values()
+                self.write_data()
+                print(f"\nItem \"{item_name}\" successfully updated.")
+                return
+        print(f"\nItem \"{item_name}\" not found in inventory.")
 
     def print_report(self,list_items = []):
         """Prints the inventory data in a readable format."""
