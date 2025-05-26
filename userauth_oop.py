@@ -69,7 +69,7 @@ class UserManager:
             json.dump(users, json_file, indent = 4)
 
     def authenticate(self):
-        user_id = input("Please enter your User ID: ")
+        user_id = input("\nPlease enter your User ID: ")
         password = input("Enter password: ")
         for user in self.users:
             if user.username == user_id and user.password == password:
@@ -86,7 +86,6 @@ def authenticate_user(func):
     return wrapper
 
 if __name__ == "__main__":
-    # Read and print users
     users = UserManager()
     print(f"\nThe Users of this App\n{"=" * 21}\n")
     for user in users.users:

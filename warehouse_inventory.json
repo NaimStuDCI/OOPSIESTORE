@@ -1,7 +1,15 @@
 {
-    "warehouse_inventory20250525214859.csv": "New Item 'Test' added to inventory.",
-    "warehouse_inventory20250525214932.csv": "Item 'Test' removed from inventory.",
-    "warehouse_inventory20250525215006.csv": "Item 'Bed' updated.",
-    "warehouse_inventory20250525215036.csv": "New Item 'Hallo' added to inventory.",
-    "warehouse_inventory20250525215047.csv": "Item 'Hallo' removed from inventory."
+    "warehouse_inventory20250525221631.csv": "New Item 'ja' added to inventory.",
+    "warehouse_inventory20250525221646.csv": "Item 'Bed' removed from inventory.",
+    "warehouse_inventory20250526131038.csv": "New Item 'Test' added to inventory.",
+    "warehouse_inventory20250526131105.csv": "Item 'Test' updated.",
+    "warehouse_inventory20250526144839.csv": "restored from warehouse_inventory20250526131105.csv",
+    "warehouse_inventory20250526144903.csv": "Item 'ja' removed from inventory.",
+    "warehouse_inventory20250526144927.csv": "New Item 'Bed' added to inventory.",
+    "warehouse_inventory20250526144952.csv": "Item 'Test' removed from inventory.",
+    "warehouse_inventory20250526152129.csv": "Item 'Bed' updated.",
+    "warehouse_inventory20250526154838.csv": "New Item 'Test' added to inventory.",
+    "warehouse_inventory20250526154942.csv": "Item 'Test' removed from inventory.",
+    "warehouse_inventory20250526155011.csv": "Item 'Bed' updated.",
+    "warehouse_inventory20250526155626.csv": "Item 'Bed' updated."
 }

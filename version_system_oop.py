@@ -54,7 +54,6 @@ class VersionManager:
         key_name = self.create_copie(filename)
         self.history.append(Version(key_name, vscomment))
         self.write_backups()
-        # self.print_backups()
 
     @authenticate_user
     def restore_version(self, filename):
@@ -63,10 +62,7 @@ class VersionManager:
         self.history = self.read_backups()
         self.print_backups()
         
-        # Input check befor restoring: 0 (skip) to number of existing backups
         while (index := input(f"\nEnter the index number of the backup you wish to restore, or press <RETURN> to skip backup: ")) != "":
-        # while True:
-            # index = input("\nEnter the index number of the backup you wish to restore (0 to skip backup): ")
             if index.isdigit():
                 index = int(index)
                 if index > 0 and index <= len(self.history):  # Do backup
@@ -74,8 +70,6 @@ class VersionManager:
                     self.update_backups(filename, f"restored from {version_filename}")
                     shutil.copy(f"{self.DIRECTORY}{version_filename}", filename)
                     return            
-                elif index == 0:  # Skip backup
-                    return
                 else:
                     print("\nInvalid index. Please try again.")
         print("\nNo backup restored.")

@@ -3,6 +3,7 @@ from datetime import datetime
 from version_system_oop import *
 from tiny_backups_oop import create_backups
 from userauth_oop import authenticate_user
+from extra_decorators_oop import progress_bar
 
 class Item:
     def __init__(self, item, quantity = 0, expiration_date = "1970-01-01", price = 0.0):
@@ -54,7 +55,8 @@ class InventoryManager:
                 data.append(Item(row["item"], row["quantity"], row["expiration_date"], row["price"]))
         return data
     
-    @create_backups(FILENAME, 5)
+    # @progress_bar
+    # @create_backups(FILENAME, 5)
     def write_data(self):
         """Writes the inventory data to the CSV file."""
         with open(self.FILENAME, "w", newline="") as csv_file:
@@ -179,14 +181,4 @@ class InventoryManager:
             print("No expired items in the inventory.")
 
 if __name__ == "__main__":
-    # Example usage
-    test_inventory = InventoryManager()
-    test_inventory.print_full_report()
-    # test_inventory.print_sorted_by_expiration_date()
-
-    # @use_version_system_oop("warehouse_inventory.csv", "Testkommentar")
-    # def test_inventory.write_data
-    # The following is the same as the above inside a class defintion
-    # Example below -> double-decoration
-    # test_inventory.write_data = use_version_system_oop("warehouse_inventory.csv", "Testkommentar")(create_backups("warehouse_inventory.csv", 5)(test_inventory.write_data))
-    # test_inventory.write_data()
+    pass
