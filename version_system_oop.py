@@ -55,7 +55,7 @@ class VersionManager:
         self.history.append(Version(key_name, vscomment))
         self.write_backups()
 
-    @authenticate_user
+    # @authenticate_user
     def restore_version(self, filename):
         """Restores a version of the file from the backup history."""
         
@@ -78,10 +78,12 @@ class VersionManager:
 def use_version_system_oop(filename, vscomment):
     def inner_decorator(func):
         def wrapper(*args, **kwargs):
-
+            func(*args, **kwargs)
             vers_man = VersionManager()
             vers_man.update_backups(filename, vscomment)
-
-            return func(*args, **kwargs)
+            return
         return wrapper
     return inner_decorator
+
+if __name__ == "__main__":
+    pass
