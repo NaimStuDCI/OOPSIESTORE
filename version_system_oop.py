@@ -27,6 +27,7 @@ class VersionManager:
         return versions
     
     def write_backups(self):
+        """Writes the current backup history to the JSON file."""
         with open(self.CONFIG_FILE, "w") as json_file:
             versions = {}
             for version in self.history:
@@ -77,12 +78,13 @@ class VersionManager:
         print("\nNo backup restored.")
 
 # Decorator for use in amazon_inventory_oop
-def use_version_system_oop(filename, vscomment):
+def use_version_system_oop():
     def inner_decorator(func):
         def wrapper(*args, **kwargs):
             func(*args, **kwargs)
             vers_man = VersionManager()
-            vers_man.update_backups(filename, vscomment)
+            print(kwargs)
+            vers_man.update_backups(kwargs["filename"], kwargs["vscomment"])
             return
         return wrapper
     return inner_decorator

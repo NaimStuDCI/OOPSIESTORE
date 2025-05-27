@@ -58,7 +58,8 @@ class InventoryManager:
     
     # @progress_bar
     # @create_backups(FILENAME, 5)
-    def write_data(self):
+    @use_version_system_oop()
+    def write_data(self,*args, **kwargs):
         """Writes the inventory data to the CSV file."""
         with open(self.FILENAME, "w", newline="") as csv_file:
             fieldnames = ["item", "quantity", "expiration_date", "price"]
@@ -80,10 +81,10 @@ class InventoryManager:
         self.data.append(new_item)
 
         # Decorate / undecorate method "write_data()" with "use_version_system_oop(filename, vscomment)"
-        dummy = self.write_data
-        self.write_data = use_version_system_oop(self.FILENAME, f"New Item '{new_item_name}' added to inventory.")(self.write_data)
-        self.write_data()
-        self.write_data = dummy
+        #dummy = self.write_data
+        #self.write_data = use_version_system_oop(self.FILENAME, f"New Item '{new_item_name}' added to inventory.")(self.write_data)
+        self.write_data(filename = self.FILENAME,vscomment=f"New Item '{new_item_name}' added to inventory.")
+        #self.write_data = dummy
 
         print(f"\nItem \"{new_item_name}\" successfully added to inventory.")
 
@@ -95,10 +96,10 @@ class InventoryManager:
                 self.data.remove(item)
                 
                 # Decorate / undecorate method "write_data()" with "use_version_system_oop(filename, vscomment)"
-                dummy = self.write_data
-                self.write_data = use_version_system_oop(self.FILENAME, f"Item '{item_name}' removed from inventory.")(self.write_data)
-                self.write_data()
-                self.write_data = dummy
+                #dummy = self.write_data
+                #self.write_data = use_version_system_oop(self.FILENAME, f"Item '{item_name}' removed from inventory.")(self.write_data)
+                self.write_data(filename = self.FILENAME, vscomment=f"Item '{item_name}' removed from inventory.")
+                #self.write_data = dummy
 
                 print(f"\nItem \"{item_name}\" successfully removed from inventory.")
                 return
@@ -119,9 +120,9 @@ class InventoryManager:
                 # self.write_data()
                 # self.write_data = dummy
 
-                self.write_data()
-                v_manager = VersionManager()
-                v_manager.update_backups(self.FILENAME, f"Item '{item_name}' updated.")
+                self.write_data(filename = self.FILENAME, vscomment=f"Item '{item_name}' updated.")
+                #v_manager = VersionManager()
+                #v_manager.update_backups(self.FILENAME, f"Item '{item_name}' updated.")
 
                 print(f"\nItem \"{item_name}\" successfully updated.")
                 return
