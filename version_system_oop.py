@@ -14,6 +14,8 @@ class VersionManager:
     DIRECTORY = "./backups/"
 
     def __init__(self):
+        if not os.path.exists(self.DIRECTORY):
+            os.makedirs(self.DIRECTORY)
         self.history = self.read_backups()
 
     def read_backups(self):
