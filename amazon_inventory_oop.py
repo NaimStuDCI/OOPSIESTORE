@@ -43,6 +43,8 @@ class Item:
 class InventoryManager:
     FILENAME = "warehouse_inventory.csv"
     def __init__(self):
+        if not os.path.exists("backups"):
+            os.makedirs("backups")
         self.data = self.load_data()
 
     def load_data(self):
@@ -65,17 +67,9 @@ class InventoryManager:
             for item in self.data:
                 writer.writerow({"item": item.item, "quantity": item.quantity, "expiration_date": item.expiration_date, "price": item.price})
 
-    def add_item(self, item_name, quantity=0, expiration_date="1970-01-01", price=0.0):
-        """Adds an item to the inventory."""
-        for item in self.data:
-            if item.item == item_name:
-                print(f"Item {item_name} already exists in inventory.")
-                return
-        self.data.append(Item(item_name, quantity, expiration_date, price))
-        self.write_data()        
-
+    
     # @authenticate_user
-    def new_add_item(self, new_item_name):
+    def add_item(self, new_item_name):
         """Adds an item to the inventory."""
         for item in self.data:
             if item.item == new_item_name:
@@ -110,22 +104,10 @@ class InventoryManager:
                 return
         print(f"\nItem \"{item_name}\" not found in inventory.")
 
-    def update_item(self, item_name, quantity=None, expiration_date=None, price=None):
-        """Updates an item in the inventory."""
-        for item in self.data:
-            if item.item == item_name:
-                if quantity is not None:
-                    item.quantity = quantity
-                if expiration_date is not None:
-                    item.expiration_date = expiration_date
-                if price is not None:
-                    item.price = price
-                self.write_data()
-                return
-        print(f"Item {item_name} not found in inventory.")
+
 
     # @authenticate_user
-    def new_update_item(self, item_name):
+    def update_item(self, item_name):
         """Updates an item in the inventory."""
         for item in self.data:
             if item.item == item_name:

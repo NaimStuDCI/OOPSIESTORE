@@ -40,7 +40,7 @@ class MenuManager:
             case 1:
                 system(clear_crt)
                 print("\nAdd an item to the warehouse\n")
-                inventory.new_add_item(input("Enter item name: "))
+                inventory.add_item(input("Enter item name: "))
                 input("\nPress <RETURN> to continue.\n")
 
             case 2:
@@ -52,7 +52,7 @@ class MenuManager:
             case 3:
                 system(clear_crt)
                 print("\nUpdate an existing item of the warehouse\n")
-                inventory.new_update_item(input("\nEnter the name of the item: "))
+                inventory.update_item(input("\nEnter the name of the item: "))
                 input("\nPress <RETURN> to continue.\n")
 
             case 4:
@@ -95,7 +95,7 @@ class MenuManager:
                 system(clear_crt)
                 print("\nRestore data from an existing backup\n")
                 v_manager.restore_version(filename)
-                inventory.__init__()  # Reload the CSV-file into self.data
+                inventory.__init__()  # Reload the CSV-file into self.data, ask Markus how to improve (smelly code)
                 input("\nPress <RETURN> to continue.\n")
 
             case 0:
