@@ -15,7 +15,7 @@ class Item:
 
     def update_values(self):
         """Updates the values of the item."""
-        print(f"\nUpdate the values for \"{self.item}\": Press <RETURN> to skip update")
+        print(f"\nUpdate the values for \"{self.item}\": Press <ENTER> to skip update")
 
         # Quantity update
         while (new_value := input(f"\nQuantity is: \"{self.quantity}\" and should be: ")) != "":

@@ -67,7 +67,7 @@ class VersionManager:
         """Restores a version of the file from the backup history."""
         self.history = self.read_backups()
         self.print_backups()
-        while (index := input(f"\nEnter the index number of the backup you wish to restore, or press <RETURN> to skip backup: ")) != "":
+        while (index := input(f"\nEnter the index number of the backup you wish to restore, or press <ENTER> to skip backup: ")) != "":
             if index.isdigit():
                 index = int(index)
                 if index > 0 and index <= len(self.history):  # Do backup

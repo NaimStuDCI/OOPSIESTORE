@@ -41,62 +41,62 @@ class MenuManager:
                 system(clear_crt)
                 print("\nAdd an item to the warehouse\n")
                 inventory.add_item(input("Enter item name: "))
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 2:
                 system(clear_crt)
                 print("\nRemove an item from the warehouse\n")
                 inventory.remove_item(input("\nEnter item name to remove: "))
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 3:
                 system(clear_crt)
                 print("\nUpdate an existing item of the warehouse\n")
                 inventory.update_item(input("\nEnter the name of the item: "))
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 4:
                 system(clear_crt)
                 print("\nThe full report - unsorted")
                 inventory.print_full_report()
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 5:
                 system(clear_crt)
                 print("\nThe list of expired items")
                 inventory.print_expired_items()
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 6:
                 system(clear_crt)
                 print("\nSearch an item\n")
                 inventory.search_item(input("Enter the item name you want to search: "))
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 7:
                 system(clear_crt)
                 print("\nThe full report - sorted by expiration date")
                 inventory.print_sorted_by_expiration_date()
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
             
             case 8:
                 system(clear_crt)
                 print("\nThe full report - sorted by price")
                 inventory.print_sorted_by_price()
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 9:
                 system(clear_crt)
                 print("\nThe full report - sorted by quantity")
                 inventory.print_sorted_by_quantity()
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 10:
                 system(clear_crt)
                 print("\nRestore data from an existing backup\n")
                 v_manager.restore_version(filename)
                 inventory.__init__()  # Reload the CSV-file into self.data, ask Markus how to improve (smelly code)
-                input("\nPress <RETURN> to continue.\n")
+                input("\nPress <ENTER> to continue.\n")
 
             case 0:
                 system(clear_crt)
@@ -105,7 +105,7 @@ class MenuManager:
 
             case _:
                 system(clear_crt)
-                input("\nInvalid input!\n\nPress <RETURN> and try again.\n")
+                input("\nInvalid input!\n\nPress <ENTER> and try again.\n")
 
 # Main part
 warehouse = MenuManager()
