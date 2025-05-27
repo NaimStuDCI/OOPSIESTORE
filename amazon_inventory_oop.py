@@ -5,15 +5,18 @@ from userauth_oop import authenticate_user
 from extra_decorators_oop import progress_bar, create_backups
 
 class Item:
+    """Represents an item in the warehouse inventory."""
     def __init__(self, item, quantity = 0, expiration_date = "1970-01-01", price = 0.0):
+        """Initializes an item with its name, quantity, expiration date, and price."""
         self.item = item
         self.quantity = quantity
         self.expiration_date = expiration_date
         self.price = price
 
     def update_values(self):
+        """Updates the values of the item."""
         print(f"\nUpdate the values for \"{self.item}\": Press <RETURN> to skip update")
-        
+
         # Quantity update
         while (new_value := input(f"\nQuantity is: \"{self.quantity}\" and should be: ")) != "":
             if new_value.isdigit():
@@ -41,10 +44,13 @@ class Item:
                 print("\nOnly positiv numbers, including 0!\n")
     
 class InventoryManager:
+    """Manages the warehouse inventory using a CSV file."""
     FILENAME = "warehouse_inventory.csv"
+    DIRECTORY = "./backups/"
     def __init__(self):
-        if not os.path.exists("backups"):
-            os.makedirs("backups")
+        """Initializes the InventoryManager and loads the inventory data."""
+        if not os.path.exists(self.DIRECTORY):
+            os.makedirs(self.DIRECTORY)
         self.data = self.load_data()
 
     def load_data(self):
@@ -56,9 +62,9 @@ class InventoryManager:
                 data.append(Item(row["item"], row["quantity"], row["expiration_date"], row["price"]))
         return data
     
-    # @progress_bar
+    @progress_bar
     # @create_backups(FILENAME, 5)
-    @use_version_system_oop()
+    @use_version_system_oop
     def write_data(self,*args, **kwargs):
         """Writes the inventory data to the CSV file."""
         with open(self.FILENAME, "w", newline="") as csv_file:
@@ -69,7 +75,7 @@ class InventoryManager:
                 writer.writerow({"item": item.item, "quantity": item.quantity, "expiration_date": item.expiration_date, "price": item.price})
 
     
-    # @authenticate_user
+    @authenticate_user
     def add_item(self, new_item_name):
         """Adds an item to the inventory."""
         for item in self.data:
@@ -79,35 +85,23 @@ class InventoryManager:
         new_item = Item(new_item_name)
         new_item.update_values()
         self.data.append(new_item)
-
-        # Decorate / undecorate method "write_data()" with "use_version_system_oop(filename, vscomment)"
-        #dummy = self.write_data
-        #self.write_data = use_version_system_oop(self.FILENAME, f"New Item '{new_item_name}' added to inventory.")(self.write_data)
         self.write_data(filename = self.FILENAME,vscomment=f"New Item '{new_item_name}' added to inventory.")
-        #self.write_data = dummy
-
         print(f"\nItem \"{new_item_name}\" successfully added to inventory.")
 
-    # @authenticate_user
+    @authenticate_user
     def remove_item(self, item_name):
         """Removes an item from the inventory."""
         for item in self.data:
             if item.item == item_name:
                 self.data.remove(item)
-                
-                # Decorate / undecorate method "write_data()" with "use_version_system_oop(filename, vscomment)"
-                #dummy = self.write_data
-                #self.write_data = use_version_system_oop(self.FILENAME, f"Item '{item_name}' removed from inventory.")(self.write_data)
                 self.write_data(filename = self.FILENAME, vscomment=f"Item '{item_name}' removed from inventory.")
-                #self.write_data = dummy
-
                 print(f"\nItem \"{item_name}\" successfully removed from inventory.")
                 return
         print(f"\nItem \"{item_name}\" not found in inventory.")
 
 
 
-    # @authenticate_user
+    @authenticate_user
     def update_item(self, item_name):
         """Updates an item in the inventory."""
         for item in self.data:

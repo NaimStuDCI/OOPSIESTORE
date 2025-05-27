@@ -3,22 +3,26 @@ from datetime import datetime
 from userauth_oop import authenticate_user
 
 class Version:
+    """Represents a version of the warehouse inventory backup."""
 
     def __init__(self, filename, comment):
         self.filename = filename
         self.comment = comment
 
 class VersionManager:
+    """Manages the versioning system for warehouse inventory backups."""
     
     CONFIG_FILE = "warehouse_inventory.json"
     DIRECTORY = "./backups/"
 
     def __init__(self):
+        """Initializes the VersionManager and reads existing backups."""
         if not os.path.exists(self.DIRECTORY):
             os.makedirs(self.DIRECTORY)
         self.history = self.read_backups()
 
     def read_backups(self):
+        """Reads the backup history from the JSON file."""
         with open(self.CONFIG_FILE, "r") as json_file:
             versions = []
             version_dictionary = json.load(json_file)
@@ -58,13 +62,11 @@ class VersionManager:
         self.history.append(Version(key_name, vscomment))
         self.write_backups()
 
-    # @authenticate_user
+    @authenticate_user # Decorator to authenticate user before restoring a version imported from userauth_oop
     def restore_version(self, filename):
         """Restores a version of the file from the backup history."""
-        
         self.history = self.read_backups()
         self.print_backups()
-        
         while (index := input(f"\nEnter the index number of the backup you wish to restore, or press <RETURN> to skip backup: ")) != "":
             if index.isdigit():
                 index = int(index)
@@ -77,17 +79,14 @@ class VersionManager:
                     print("\nInvalid index. Please try again.")
         print("\nNo backup restored.")
 
-# Decorator for use in amazon_inventory_oop
-def use_version_system_oop():
-    def inner_decorator(func):
-        def wrapper(*args, **kwargs):
-            func(*args, **kwargs)
-            vers_man = VersionManager()
-            print(kwargs)
-            vers_man.update_backups(kwargs["filename"], kwargs["vscomment"])
-            return
-        return wrapper
-    return inner_decorator
+# Version system decorator for use in amazon_inventory_oop
+def use_version_system_oop(func):
+    def wrapper(*args, **kwargs):
+        func(*args, **kwargs)
+        vers_man = VersionManager()
+        vers_man.update_backups(kwargs["filename"], kwargs["vscomment"])
+        return
+    return wrapper
 
 if __name__ == "__main__":
     pass
