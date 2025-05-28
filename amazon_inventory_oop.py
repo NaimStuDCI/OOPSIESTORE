@@ -61,7 +61,11 @@ class InventoryManager:
             for row in reader:
                 data.append(Item(row["item"], row["quantity"], row["expiration_date"], row["price"]))
         return data
-    
+
+    def reload_data(self):
+        """Reloads the inventory data from the CSV file."""
+        self.data = self.load_data()
+
     @progress_bar
     # @create_backups(FILENAME, 5)
     @use_version_system_oop

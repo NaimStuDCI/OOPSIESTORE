@@ -95,7 +95,8 @@ class MenuManager:
                 system(clear_crt)
                 print("\nRestore data from an existing backup\n")
                 v_manager.restore_version(filename)
-                inventory.__init__()  # Reload the CSV-file into self.data, ask Markus how to improve (smelly code)
+                # inventory.__init__()  # Reload the CSV-file into self.data, ask Markus how to improve (smelly code)
+                inventory.reload_data()
                 input("\nPress <ENTER> to continue.\n")
 
             case 0:
