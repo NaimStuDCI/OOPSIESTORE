@@ -1,14 +1,14 @@
 {
-    "naim": {
+    "kate": {
         "password": "123456",
-        "role": "admin"
+        "role": "user"
     },
     "chris": {
         "password": "123456",
         "role": "admin"
     },
-    "kate": {
+    "naim": {
         "password": "123456",
-        "role": "user"
+        "role": "admin"
     }
 }
